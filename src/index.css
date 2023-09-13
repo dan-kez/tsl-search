@@ -239,6 +239,10 @@ form.manage-deck select,input {
   left: 110%;
   top: -12px;
 }
+.hover-img img {
+  height: 300px;
+  border-radius: 4.75% / 3.5%
+}
 
 /* Allow overflow out of cell for hover image */
 .MuiDataGrid-cell {overflow:visible !important;}

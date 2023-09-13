@@ -155,7 +155,7 @@ const columns: GridColDef[] = [
           >
             {row.value}
             <span>
-              <img src={row.row.image_uri} alt="scryfall image" height={300} />
+              <img src={row.row.image_uri} alt="scryfall image" />
             </span>
           </a>
         </div>
