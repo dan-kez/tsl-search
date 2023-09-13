@@ -15,10 +15,12 @@ function NavBar() {
   return (
     <>
       {hasDeckSetUp === false && (
-        <div className="add-deck-warning">
-          {!user && 'Log in to add your moxfield deck'}
-          {user && 'Add your moxfield deck'}
-        </div>
+        <a href={user ? '/manage-deck' : '/login'}>
+          <div className="add-deck-warning">
+            {!user && 'Sign in to add your moxfield deck'}
+            {user && 'Add your moxfield deck'}
+          </div>
+        </a>
       )}
       <div className="navbar">
         <div>
