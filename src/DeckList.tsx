@@ -37,7 +37,7 @@ const columns: GridColDef[] = [
       return (
         <div className="hover-img">
           <a
-            href={`https://www.moxfield.com/decks/${row.value}`}
+            href={`https://www.moxfield.com/decks/${row.row.moxfield_id}`}
             rel="noref"
             target="_blank"
           >
