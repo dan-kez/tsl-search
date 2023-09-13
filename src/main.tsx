@@ -34,8 +34,7 @@ async function protectedLoader({ request }: LoaderFunctionArgs) {
   if (isAuthed) return null;
   let params = new URLSearchParams();
   params.set('from', new URL(request.url).pathname);
-
-  return redirect('/login?' + params.toString());
+  return redirect('/login');
 }
 
 const router = createBrowserRouter([
