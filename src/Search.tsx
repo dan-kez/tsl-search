@@ -104,6 +104,9 @@ const DecksWithCardDrawer = ({
   }, []);
   return (
     <SwipeableDrawer
+      PaperProps={{
+        sx: { width: "90%" },
+      }}
       onOpen={() => {}}
       anchor="right"
       open={true}
