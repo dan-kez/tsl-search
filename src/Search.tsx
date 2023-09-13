@@ -101,11 +101,13 @@ const DecksWithCardDrawer = ({
     getDecksWithCard({ league_id, scryfall_id }).then((decks) => {
       setDecks(decks);
     });
-  }, []);
+  }, [league_id, scryfall_id]);
   return (
     <SwipeableDrawer
+      keepMounted={false}
       PaperProps={{
-        sx: { width: "90%" },
+        sx: { width: "75%" },
+        md: { width: "25%" },
       }}
       onOpen={() => {}}
       anchor="right"
