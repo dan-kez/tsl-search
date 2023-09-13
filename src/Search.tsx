@@ -10,6 +10,9 @@ import {
   ListItemText,
 } from '@mui/material';
 import ManaCost from './ManaCost';
+import { Avatar } from '@mui/material';
+
+
 
 interface CardResponse {
   deck: {
@@ -145,7 +148,7 @@ const columns: GridColDef[] = [
   {
     field: 'image_uri',
     headerName: 'Image',
-    renderCell: (row) => <img src={row.value} />, // renderCell will render the component
+    renderCell: (row) => <Avatar src={row.value} />, // renderCell will render the component
   },
   {
     field: 'name',
