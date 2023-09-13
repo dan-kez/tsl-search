@@ -2,8 +2,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { supabase } from './supabase/supabaseClient';
 import { useEffect, useState } from 'react';
 import NavBar from './NavBar';
+import { getExistingDeckInformationForForm } from './getExistingDeckInformationForForm';
 
-type ManageDeckInputs = {
+export type ManageDeckInputs = {
   league_id: number;
   moxfield_url: string;
 };
@@ -26,26 +27,6 @@ async function upsertDeckInformation(moxfield_id: string, league_id: number) {
     .select();
   await supabase.functions.invoke('moxfield-sync', { body: { league_id } });
   return upsertResult;
-}
-
-export async function getExistingDeckInformationForForm(): Promise<ManageDeckInputs> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const { data } = await supabase
-    .from('deck')
-    .select()
-    .filter('user_id', 'eq', user?.id);
-  if (data?.length === 1)
-    return {
-      league_id: data[0].league_id,
-      moxfield_url: `https://www.moxfield.com/decks/${data[0].moxfield_id}`,
-    };
-
-  return {
-    league_id: 1,
-    moxfield_url: '',
-  }
 }
 
 function ManageDeck() {

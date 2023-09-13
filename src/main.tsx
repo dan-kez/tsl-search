@@ -8,7 +8,8 @@ import {
 } from 'react-router-dom';
 import './index.css';
 import Login from './Login.tsx';
-import ManageDeck, { getExistingDeckInformationForForm } from './ManageDeck.tsx';
+import ManageDeck from './ManageDeck.tsx';
+import { getExistingDeckInformationForForm } from "./getExistingDeckInformationForForm.tsx";
 import AuthProvider from './AuthContext.tsx';
 import { supabase } from './supabase/supabaseClient.ts';
 import Search from './Search.tsx';
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        Component: Search,
+      },
+      {
+        path: 'login',
         loader: async () => {
           const isAuthed = await isAuthenticated();
           if (isAuthed) {
@@ -63,13 +68,7 @@ const router = createBrowserRouter([
         Component: ManageDeck,
       },
       {
-        path: 'search',
-        loader: protectedLoader,
-        Component: Search,
-      },
-      {
         path: 'decks',
-        loader: protectedLoader,
         Component: DeckList,
       },
       {

@@ -254,3 +254,10 @@ input {
   white-space: normal !important;
   word-wrap: break-word !important;
 }
+
+
+.add-deck-warning {
+  color: #ffffff;
+  background: var(--accent-color);
+  padding: 6px;
+}
