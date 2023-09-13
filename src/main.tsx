@@ -13,6 +13,7 @@ import AuthProvider from './AuthContext.tsx';
 import { supabase } from './supabase/supabaseClient.ts';
 import Search from './Search.tsx';
 import 'mana-font/css/mana.css';
+import DeckList from './DeckList.tsx';
 
 async function isAuthenticated(): Promise<boolean> {
   try {
@@ -66,6 +67,11 @@ const router = createBrowserRouter([
         path: 'search',
         loader: protectedLoader,
         Component: Search,
+      },
+      {
+        path: 'decks',
+        loader: protectedLoader,
+        Component: DeckList,
       },
       {
         path: 'logout',

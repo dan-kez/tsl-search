@@ -211,6 +211,11 @@ form.manage-deck select,input {
   margin-left: 1em;
 }
 
+.discord-login {
+  background: #7289DA;
+  color: white;
+}
+
 
 .error {
   color: var(--error-color);

@@ -7,9 +7,14 @@ function NavBar() {
   return (
     <div className="navbar">
       <div>
-        <a href="/" className="navbar-item">
+        <a href="/search" className="navbar-item">
           TSL Search Tool
         </a>
+        {user && (
+          <a href="/decks" className="navbar-item">
+            All Decks
+          </a>
+        )}
         {user && (
           <a href="/manage-deck" className="navbar-item">
             Manage Your Deck
