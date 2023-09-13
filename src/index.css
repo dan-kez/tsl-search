@@ -244,6 +244,10 @@ input {
   }
 }
 
+.mana-cost {
+  margin-right: 2px;
+}
+
 /* Allow overflow out of cell for hover image */
 .MuiDataGrid-cell {
   overflow: visible !important;
