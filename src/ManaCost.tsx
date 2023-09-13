@@ -1,7 +1,9 @@
-const manaCostRegex = /(?:\{([^{}/\s]+?)\}|( \/\/ ))/g;
+import React from "react";
+
+const MANA_COST_REGEX = /(?:\{([^{}/\s]+?)\}|( \/\/ ))/g;
 
 const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
-  const splitManaCostMatchAll = mana_cost.matchAll(manaCostRegex);
+  const splitManaCostMatchAll = mana_cost.matchAll(MANA_COST_REGEX);
   const splitManaCost = Array.from(splitManaCostMatchAll).map(
     ([, group1, group2]) => group1 || group2
   );
@@ -19,4 +21,4 @@ const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
   });
 };
 
-export default ManaCost;
+export default React.memo(ManaCost);
