@@ -149,14 +149,14 @@ const columns: GridColDef[] = [
     renderCell: (row) => {
       return (
         <div className="hover-img">
-          <ManaCost mana_cost={row.row.mana_cost} /> {row.value}
+          <ManaCost mana_cost={row.row.mana_cost} />
           <a
             href={`https://scryfall.com/cards/${row.id}`}
             rel="noref"
             target="_blank"
           >
+            &nbsp;{row.value}
             <span>
-              &nbsp;
               <img src={row.row.image_uri} alt="scryfall image" />
             </span>
           </a>
