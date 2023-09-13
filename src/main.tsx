@@ -34,7 +34,7 @@ async function protectedLoader({ request }: LoaderFunctionArgs) {
   if (isAuthed) return null;
   let params = new URLSearchParams();
   params.set('from', new URL(request.url).pathname);
-  debugger;
+
   return redirect('/login?' + params.toString());
 }
 
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
           const isAuthed = await isAuthenticated();
           if (isAuthed) {
             const existingDeckInfo = await getExistingDeckInformationForForm();
-            if (!existingDeckInfo) {
+            if (!existingDeckInfo.moxfield_url) {
               return redirect('/manage-deck');
             }
             return redirect('/search');

@@ -28,8 +28,6 @@ async function upsertDeckInformation(moxfield_id: string, league_id: number) {
   return upsertResult;
 }
 
-// running into issues with returning undefined in react-hook-form defaultValues
-// @ts-expect-error
 export async function getExistingDeckInformationForForm(): Promise<ManageDeckInputs> {
   const {
     data: { user },
@@ -37,12 +35,17 @@ export async function getExistingDeckInformationForForm(): Promise<ManageDeckInp
   const { data } = await supabase
     .from('deck')
     .select()
-    .filter('user_id', 'eq', user!?.id);
+    .filter('user_id', 'eq', user?.id);
   if (data?.length === 1)
     return {
       league_id: data[0].league_id,
       moxfield_url: `https://www.moxfield.com/decks/${data[0].moxfield_id}`,
     };
+
+  return {
+    league_id: 1,
+    moxfield_url: '',
+  }
 }
 
 function ManageDeck() {
