@@ -10,11 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.1",
+    "@mui/material": "^5.14.8",
+    "@mui/styled-engine": "^5.14.8",
+    "@mui/x-data-grid": "^6.13.0",
     "@supabase/supabase-js": "^2.33.2",
+    "localforage": "^1.10.0",
+    "mana-font": "^1.15.9",
+    "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.1",
+    "react-router-dom": "^6.15.0",
+    "sort-by": "^1.2.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ import './App.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { supabase } from './supabase/supabaseClient';
 import { useEffect, useState } from 'react';
+import NavBar from './NavBar';
 
 type ManageDeckInputs = {
   league_id: number;
@@ -45,7 +46,7 @@ async function getExistingDeckInformationForForm(): Promise<ManageDeckInputs> {
     };
 }
 
-function App() {
+function ManageDeck() {
   const {
     register,
     handleSubmit,
@@ -64,7 +65,6 @@ function App() {
     };
     fetchLeagues();
   }, []);
-  console.log({isSubmitting, isSubmitSuccessful})
 
   const onSubmit: SubmitHandler<ManageDeckInputs> = async (data) => {
     let moxfield_id: string;
@@ -91,36 +91,45 @@ function App() {
       console.error(e);
       setError('moxfield_url', { message: 'Insert a valid moxfield url' });
     }
-    
   };
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <form className="manage-deck" onSubmit={handleSubmit(onSubmit)}>
-      {isSubmitSuccessful && <span className='success'>Submit Successful, Moxfield Data Refreshed</span>}
-      {errors.root && <span className="error">{errors.root.message}</span>}
-      {/* register your input into the hook by invoking the "register" function */}
-      <label htmlFor="league_id">
-        League:
-        <select id="league_id" {...register('league_id')}>
-          {leagues?.map(({ id, name }) => (
-            <option value={id}>{name}</option>
-          ))}
-        </select>
-      </label>
+    <>
+      <NavBar />
+      <form className="manage-deck" onSubmit={handleSubmit(onSubmit)}>
+        {isSubmitSuccessful && (
+          <span className="success">
+            Submit Successful, Moxfield Data Refreshed
+          </span>
+        )}
+        {errors.root && <span className="error">{errors.root.message}</span>}
+        {/* register your input into the hook by invoking the "register" function */}
+        <label htmlFor="league_id">
+          League:
+          <select id="league_id" {...register('league_id')}>
+            {leagues?.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
 
-      <label htmlFor="moxfield_url">
-        Moxfield Url:
-        <input id="moxfield_url" type="url" {...register('moxfield_url')} />
-      </label>
-      {/* errors will return when field validation fails  */}
-      {errors.moxfield_url && (
-        <span className="error">{errors.moxfield_url.message}</span>
-      )}
+        <label htmlFor="moxfield_url">
+          Moxfield Url:
+          <input id="moxfield_url" type="url" {...register('moxfield_url')} />
+        </label>
+        {/* errors will return when field validation fails  */}
+        {errors.moxfield_url && (
+          <span className="error">{errors.moxfield_url.message}</span>
+        )}
 
-      <button type="submit" disabled={isSubmitting}>Submit</button>
-    </form>
+        <button type="submit" disabled={isSubmitting}>
+          Submit
+        </button>
+      </form>
+    </>
   );
 }
 
-export default App;
+export default ManageDeck;

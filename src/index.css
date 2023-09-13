@@ -3,25 +3,146 @@
   line-height: 1.5;
   font-weight: 400;
 
+  /* --background: #212121;
+  --foreground: #B0BEC5;
+  --text: #727272;
+  --selection-background: #404040;
+  --selection-foreground: #FFFFFF;
+  --buttons: #2A2A2A;
+  --second-background: #292929;
+  --disabled: #474747;
+  --contrast: #1A1A1A;
+  --active: #323232;
+  --border: #292929;
+  --highlight: #3F3F3F;
+  --tree: #323232C0;
+  --notifications: #1A1A1A;
+  --accent-color: #FF9800;
+  --excluded-files-color: #323232;
+  --green-color: #c3e88d;
+  --yellow-color: #ffcb6b;
+  --blue-color: #82aaff;
+  --red-color: #f07178;
+  --purple-color: #c792ea;
+  --orange-color: #f78c6c;
+  --cyan-color: #89ddff;
+  --gray-color: #616161;
+  --white-black-color: #eeffff;
+  --error-color: #ff5370;
+  --comments-color: #616161;
+  --variables-color: #eeffff;
+  --links-color: #80cbc4;
+  --functions-color: #82aaff;
+  --keywords-color: #c792ea;
+  --tags-color: #f07178;
+  --strings-color: #c3e88d;
+  --operators-color: #89ddff;
+  --attributes-color: #ffcb6b;
+  --numbers-color: #f78c6c;
+  --parameters-color: #f78c6c; */
+  --background: #FAFAFA;
+  --foreground: #546E7A;
+  --text: #94A7B0;
+  --selection-background: #80CBC440;
+  --selection-foreground: #546e7a;
+  --buttons: #F3F4F5;
+  --second-background: #FFFFFF;
+  --disabled: #D2D4D5;
+  --contrast: #EEEEEE;
+  --active: #E7E7E8;
+  --border: #d3e1e8;
+  --highlight: #E7E7E8;
+  --tree: #80CBC440;
+  --notifications: #eae8e8;
+  --accent-color: #00BCD4;
+  --excluded-files-color: #CCD7DA50;
+  --green-color: #91b859;
+  --yellow-color: #f6a434;
+  --blue-color: #6182b8;
+  --red-color: #e53935;
+  --purple-color: #7c4dff;
+  --orange-color: #f76d47;
+  --cyan-color: #39adb5;
+  --gray-color: #AABFC9;
+  --white-black-color: #272727;
+  --error-color: #e53935;
+  --comments-color: #AABFC9;
+  --variables-color: #272727;
+  --links-color: #39ADB5;
+  --functions-color: #6182B8;
+  --keywords-color: #7C4DFF;
+  --tags-color: #E53935;
+  --strings-color: #91B859;
+  --operators-color: #39ADB5;
+  --attributes-color: #F6A434;
+  --numbers-color: #F76D47;
+  --parameters-color: #F76D47;
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text);
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+}
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #FAFAFA;
+    --foreground: #546E7A;
+    --text: #94A7B0;
+    --selection-background: #80CBC440;
+    --selection-foreground: #546e7a;
+    --buttons: #F3F4F5;
+    --second-background: #FFFFFF;
+    --disabled: #D2D4D5;
+    --contrast: #EEEEEE;
+    --active: #E7E7E8;
+    --border: #d3e1e8;
+    --highlight: #E7E7E8;
+    --tree: #80CBC440;
+    --notifications: #eae8e8;
+    --accent-color: #00BCD4;
+    --excluded-files-color: #CCD7DA50;
+    --green-color: #91b859;
+    --yellow-color: #f6a434;
+    --blue-color: #6182b8;
+    --red-color: #e53935;
+    --purple-color: #7c4dff;
+    --orange-color: #f76d47;
+    --cyan-color: #39adb5;
+    --gray-color: #AABFC9;
+    --white-black-color: #272727;
+    --error-color: #e53935;
+    --comments-color: #AABFC9;
+    --variables-color: #272727;
+    --links-color: #39ADB5;
+    --functions-color: #6182B8;
+    --keywords-color: #7C4DFF;
+    --tags-color: #E53935;
+    --strings-color: #91B859;
+    --operators-color: #39ADB5;
+    --attributes-color: #F6A434;
+    --numbers-color: #F76D47;
+    --parameters-color: #F76D47;
+  }
+}
+button {
+  color: var(--text);
+  background-color: var(--buttons);
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--links-color);
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
-}
+
 
 body {
   margin: 0;
@@ -41,27 +162,76 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--buttons);
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
+  border-color: var(--active);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #757575;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+
+.navbar {
+  background: var(--second-background);
+  padding: 1em;
+  display: flex;
 }
+
+.navbar a:not(:first-child)::before {
+  content: '|';
+  margin-right: 1em;
+}
+
+.navbar a {
+  margin-right: 1em;
+  cursor: pointer;
+}
+
+form.manage-deck {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: auto;
+}
+
+form.manage-deck label {
+  margin: 1em;
+}
+form.manage-deck button {
+  width:fit-content
+}
+form.manage-deck select,input {
+  margin-left: 1em;
+}
+
+
+.error {
+  color: var(--error-color);
+}
+
+.success {
+  color: var(--green-color);
+}
+
+.hover-img {
+  position: relative;
+  /* overflow: visible; */
+}
+
+.hover-img a span {
+  position:absolute; display:none; z-index:99;
+
+}
+.hover-img a:hover span {
+  display:block;
+  left: 110%;
+  top: -12px;
+}
+
+/* Allow overflow out of cell for hover image */
+.MuiDataGrid-cell {overflow:visible !important;}
