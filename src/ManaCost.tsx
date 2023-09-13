@@ -11,7 +11,7 @@ const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
       acc.push(<span>e </span>);
       return acc;
     }
-    const el = <i key={i} className={`ms ms-${e.toLowerCase()}`}></i>;
+    const el = <i key={i} className={`ms ms-${e.toLowerCase()} ms-cost`}></i>;
     acc.push(el);
     return acc;
   }, [] as JSX.Element[]);

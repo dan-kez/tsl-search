@@ -69,7 +69,7 @@ const getDecksWithCard = async ({
 }: {
   league_id: number;
   scryfall_id: string;
-}): Promise<{  name: string; moxfield_id: string, discord_name: string }[]> => {
+}): Promise<{ name: string; moxfield_id: string; discord_name: string }[]> => {
   const query = supabase
     .from('card_pool_with_username')
     .select(' name, moxfield_id, discord_name')
@@ -94,9 +94,9 @@ const DecksWithCardDrawer = ({
   scryfall_id: string;
   closeModal: Function;
 }) => {
-  const [decks, setDecks] = useState<{  name: string; moxfield_id: string, discord_name: string }[]>(
-    []
-  );
+  const [decks, setDecks] = useState<
+    { name: string; moxfield_id: string; discord_name: string }[]
+  >([]);
   useEffect(() => {
     getDecksWithCard({ league_id, scryfall_id }).then((decks) => {
       setDecks(decks);
@@ -149,12 +149,12 @@ const columns: GridColDef[] = [
     renderCell: (row) => {
       return (
         <div className="hover-img">
+          <ManaCost mana_cost={row.row.mana_cost} /> {row.value}
           <a
             href={`https://scryfall.com/cards/${row.id}`}
             rel="noref"
             target="_blank"
           >
-            <ManaCost mana_cost={row.row.mana_cost} /> {row.value}
             <span>
               <img src={row.row.image_uri} alt="scryfall image" />
             </span>
