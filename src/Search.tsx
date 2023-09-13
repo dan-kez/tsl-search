@@ -124,12 +124,12 @@ const columns: GridColDef[] = [
   {
     field: 'scryfall_id',
     headerName: 'Action',
-    minWidth: 150,
+    minWidth: 100,
     renderCell: (row) => {
       const [modalOpen, setModalOpen] = useState(false);
       return (
         <>
-          <button onClick={() => setModalOpen(true)}>See Owners</button>
+          <button onClick={() => setModalOpen(true)}>Owners</button>
           {modalOpen && (
             <DecksWithCardDrawer
               league_id={1}
@@ -153,7 +153,7 @@ const columns: GridColDef[] = [
             rel="noref"
             target="_blank"
           >
-            {row.value}
+            {row.row.mana_cost} {row.value}
             <span>
               <img src={row.row.image_uri} alt="scryfall image" />
             </span>
@@ -162,7 +162,6 @@ const columns: GridColDef[] = [
       );
     },
   },
-  { field: 'mana_cost', headerName: 'Mana Cost', flex: 0.5 },
   { field: 'oracle_text', headerName: 'Oracle Text', flex: 0.5 },
   { field: 'type_line', headerName: 'Type', flex: 0.5 },
   { field: 'colors', headerName: 'Colors', flex: 0.5 },
@@ -198,6 +197,7 @@ function Search() {
               showQuickFilter: true,
             },
           }}
+          density="comfortable"
           disableDensitySelector
           disableRowSelectionOnClick
           initialState={{
