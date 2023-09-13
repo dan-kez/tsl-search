@@ -156,6 +156,7 @@ const columns: GridColDef[] = [
             target="_blank"
           >
             <span>
+              &nbsp;
               <img src={row.row.image_uri} alt="scryfall image" />
             </span>
           </a>

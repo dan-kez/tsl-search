@@ -6,15 +6,17 @@ const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
     ([, group1, group2]) => group1 || group2
   );
   if (!splitManaCost) return undefined;
-  return Array.from(splitManaCost).reduce((acc, e, i) => {
-    if (e === ' // ') {
-      acc.push(<span>e </span>);
-      return acc;
+  return Array.from(splitManaCost).map((symbol, i) => {
+    if (symbol === ' // ') {
+      return <span> // </span>;
     }
-    const el = <i key={i} className={`ms ms-${e.toLowerCase()} ms-cost`}></i>;
-    acc.push(el);
-    return acc;
-  }, [] as JSX.Element[]);
+    return (
+      <i
+        key={i}
+        className={`ms ms-${symbol.toLowerCase()} ms-cost ms-shadow`}
+      ></i>
+    );
+  });
 };
 
 export default ManaCost;
