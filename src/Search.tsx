@@ -3,11 +3,13 @@ import { supabase } from './supabase/supabaseClient';
 import NavBar from './NavBar';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import {
-  Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  Drawer,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import ManaCost from './ManaCost';
 
@@ -94,6 +96,9 @@ const DecksWithCardDrawer = ({
   scryfall_id: string;
   closeModal: Function;
 }) => {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("sm"))
+
   const [decks, setDecks] = useState<
     { name: string; moxfield_id: string; discord_name: string }[]
   >([]);
@@ -101,9 +106,16 @@ const DecksWithCardDrawer = ({
     getDecksWithCard({ league_id, scryfall_id }).then((decks) => {
       setDecks(decks);
     });
-  }, []);
+  }, [league_id, scryfall_id]);
   return (
-    <Drawer anchor="right" open={true} onClose={() => closeModal()}>
+    <Drawer
+      PaperProps={{
+        sx: { width: largeScreen ? '25%' : '80%' },
+      }}
+      anchor="right"
+      open={true}
+      onClose={() => closeModal()}
+    >
       <List>
         {decks.map(({ moxfield_id, name: deckName, discord_name }) => (
           <ListItem key={moxfield_id} disablePadding>
