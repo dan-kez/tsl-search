@@ -9,6 +9,7 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material';
+import ManaCost from './ManaCost';
 
 interface CardResponse {
   deck: {
@@ -153,7 +154,7 @@ const columns: GridColDef[] = [
             rel="noref"
             target="_blank"
           >
-            {row.row.mana_cost} {row.value}
+            <ManaCost mana_cost={row.row.mana_cost} /> {row.value}
             <span>
               <img src={row.row.image_uri} alt="scryfall image" />
             </span>
