@@ -94,7 +94,7 @@ serve(async (req) => {
     .eq('league_id', league_id);
 
   const allPromises = decks!.map(
-    async ({ id: deck_id, moxfield_id, user_id, name: deckName }) => {
+    async ({ id: deck_id, moxfield_id, name: deckName }) => {
       const moxfieldDeck = await getMoxfieldDeckList(moxfield_id);
       // Update the name if necessary
       if (deckName !== moxfieldDeck.name) {
@@ -109,7 +109,7 @@ serve(async (req) => {
       await supabaseClient
         .from('card_pool')
         .delete()
-        .eq('user_id', user_id)
+        .eq('deck_id', deck_id)
         .not('scryfall_id', 'in', allScryFallIds);
 
       // Determine which scryfall cards are in our system (scryfall_card may be out of date)

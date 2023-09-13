@@ -60,7 +60,7 @@ serve(async (req) => {
     const { set_code } = await req.json();
 
     await insertPageOfScryfallResults(
-      `https://api.scryfall.com/cards/search?order=set&q=s:${set_code}`
+      `https://api.scryfall.com/cards/search?order=set&q=s:${set_code} unique:prints`
     );
 
     return new Response(undefined, {
