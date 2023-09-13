@@ -3,7 +3,7 @@ import { supabase } from './supabase/supabaseClient';
 import NavBar from './NavBar';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import {
-  Drawer,
+  SwipeableDrawer,
   List,
   ListItem,
   ListItemButton,
@@ -103,7 +103,12 @@ const DecksWithCardDrawer = ({
     });
   }, []);
   return (
-    <Drawer anchor="right" open={true} onClose={() => closeModal()}>
+    <SwipeableDrawer
+      onOpen={() => {}}
+      anchor="right"
+      open={true}
+      onClose={() => closeModal()}
+    >
       <List>
         {decks.map(({ moxfield_id, name: deckName, discord_name }) => (
           <ListItem key={moxfield_id} disablePadding>
@@ -117,7 +122,7 @@ const DecksWithCardDrawer = ({
           </ListItem>
         ))}
       </List>
-    </Drawer>
+    </SwipeableDrawer>
   );
 };
 
