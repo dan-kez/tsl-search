@@ -68,19 +68,19 @@ const getDecksWithCard = async ({
 }: {
   league_id: number;
   scryfall_id: string;
-}): Promise<{ deck: { name: string; moxfield_id: string } }[]> => {
+}): Promise<{  name: string; moxfield_id: string, discord_name: string }[]> => {
   const query = supabase
-    .from('card_pool')
-    .select('deck( name, moxfield_id )')
-    .eq('deck.league_id', league_id)
+    .from('card_pool_with_username')
+    .select(' name, moxfield_id, discord_name')
+    .eq('league_id', league_id)
     .eq('scryfall_id', scryfall_id);
 
   const { data: decks, error } = await query;
+
   if (error) {
     console.error(error);
   }
   console.log(decks);
-  // @ts-expect-error
   return decks || [];
 };
 
@@ -93,25 +93,25 @@ const DecksWithCardDrawer = ({
   scryfall_id: string;
   closeModal: Function;
 }) => {
-  const [decks, setDecks] = useState<{ name: string; moxfield_id: string }[]>(
+  const [decks, setDecks] = useState<{  name: string; moxfield_id: string, discord_name: string }[]>(
     []
   );
   useEffect(() => {
     getDecksWithCard({ league_id, scryfall_id }).then((decks) => {
-      setDecks(decks.map(({ deck }) => deck));
+      setDecks(decks);
     });
   }, []);
   return (
     <Drawer anchor="right" open={true} onClose={() => closeModal()}>
       <List>
-        {decks.map(({ moxfield_id, name: deckName }) => (
+        {decks.map(({ moxfield_id, name: deckName, discord_name }) => (
           <ListItem key={moxfield_id} disablePadding>
             <ListItemButton
               onClick={() => {
                 window.open(`https://www.moxfield.com/decks/${moxfield_id}`);
               }}
             >
-              <ListItemText primary={deckName} />
+              <ListItemText primary={`${discord_name} --- ${deckName}`} />
             </ListItemButton>
           </ListItem>
         ))}

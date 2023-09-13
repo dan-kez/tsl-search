@@ -30,7 +30,7 @@ async function upsertDeckInformation(moxfield_id: string, league_id: number) {
 
 // running into issues with returning undefined in react-hook-form defaultValues
 // @ts-expect-error
-async function getExistingDeckInformationForForm(): Promise<ManageDeckInputs> {
+export async function getExistingDeckInformationForForm(): Promise<ManageDeckInputs> {
   const {
     data: { user },
   } = await supabase.auth.getUser();

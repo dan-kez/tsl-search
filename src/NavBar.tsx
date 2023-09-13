@@ -6,18 +6,36 @@ function NavBar() {
   const { user } = useContext(AuthContext);
   return (
     <div className="navbar">
-      <a href="/" className="navbar-item">
-        TSL Search Tool
-      </a>
-      {user && (
-        <a href="/manage-deck" className="navbar-item">
-          Manage Your Deck
+      <div>
+        <a href="/" className="navbar-item">
+          TSL Search Tool
         </a>
-      )}
-      {!user && (
-        <a href="/login" className="navbar-item">
-          Login
-        </a>
+        {user && (
+          <a href="/manage-deck" className="navbar-item">
+            Manage Your Deck
+          </a>
+        )}
+        {!user && (
+          <a href="/login" className="navbar-item">
+            Login
+          </a>
+        )}
+      </div>
+      {user && user.user_metadata.picture && (
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <span style={{ marginRight: '10px' }}>{user.user_metadata.name}</span>
+          <img
+            src={user.user_metadata.picture}
+            height="35px"
+            style={{ borderRadius: '10px' }}
+          />
+        </div>
       )}
     </div>
   );
