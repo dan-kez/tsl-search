@@ -1,4 +1,3 @@
-import './App.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { supabase } from './supabase/supabaseClient';
 import { useEffect, useState } from 'react';

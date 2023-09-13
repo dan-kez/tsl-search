@@ -1,4 +1,3 @@
-import './App.css';
 import { useContext } from 'react';
 
 import { AuthContext } from './AuthContext';

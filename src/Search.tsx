@@ -1,4 +1,3 @@
-import './App.css';
 import { useEffect, useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
 import NavBar from './NavBar';
@@ -29,8 +28,6 @@ interface CardResponse {
 
 interface RowToRender {
   scryfall_id: string;
-  deck_name: string;
-  moxfield_url: string;
   colors: string[];
   image_uri: string;
   mana_cost: string;
@@ -47,35 +44,13 @@ interface CardFilters {
   league_id: number;
 }
 
-const getFilteredCards = async (
-  filters: CardFilters
-): Promise<CardResponse[]> => {
-  let query = supabase
-    .from('card_pool')
-    .select(
-      `
-        deck:deck_id!inner ( name, moxfield_id ),
-        scryfall_card:scryfall_id!inner ( scryfall_id:id ,colors,image_uri,mana_cost,name,oracle_text,type_line )
-    `
-    )
-    .eq('deck.league_id', filters.league_id);
-  const { data: cardResponses, error } = await query;
-  if (error) {
-    console.error(error);
-  }
-  // @ts-expect-error
-  return cardResponses || [];
-};
-
 const getDistinctScryfallByLeagueId = async (
   filters: CardFilters
 ): Promise<CardResponse[]> => {
   const query = supabase
     .from('distinct_scryfall_id_by_league_id')
     .select(
-      `
-        scryfall_card:scryfall_id!inner ( scryfall_id:id ,colors,image_uri,mana_cost,name,oracle_text,type_line )
-    `
+      `scryfall_card:scryfall_id!inner ( scryfall_id:id ,colors,image_uri,mana_cost,name,oracle_text,type_line )`
     )
     .eq('league_id', filters.league_id);
   const { data: cardResponses, error } = await query;
@@ -173,7 +148,11 @@ const columns: GridColDef[] = [
     renderCell: (row) => {
       return (
         <div className="hover-img">
-          <a href={`https://scryfall.com/cards/${row.id}`} rel="noref" target='_blank'>
+          <a
+            href={`https://scryfall.com/cards/${row.id}`}
+            rel="noref"
+            target="_blank"
+          >
             {row.value}
             <span>
               <img src={row.row.image_uri} alt="scryfall image" height={300} />
@@ -187,22 +166,19 @@ const columns: GridColDef[] = [
   { field: 'oracle_text', headerName: 'Oracle Text', flex: 0.5 },
   { field: 'type_line', headerName: 'Type', flex: 0.5 },
   { field: 'colors', headerName: 'Colors', flex: 0.5 },
-  
 ];
 
 function Search() {
   const [rows, setRows] = useState<RowToRender[]>([]);
   // TODO: Enable filtering by League Id
-  const [filters, setFilters] = useState<CardFilters>({
+  const [filters] = useState<CardFilters>({
     league_id: 1,
   });
   useEffect(() => {
-    getFilteredCards(filters).then((data) => {
+    getDistinctScryfallByLeagueId(filters).then((data) => {
       setRows(
-        data.map(({ deck, scryfall_card }) => ({
+        data.map(({ scryfall_card }) => ({
           ...scryfall_card,
-          deck_name: deck.name,
-          moxfield_url: `https://www.moxfield.com/decks/${deck.moxfield_id}`,
         }))
       );
     });
