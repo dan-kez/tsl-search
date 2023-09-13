@@ -143,6 +143,11 @@ const columns: GridColDef[] = [
     },
   },
   {
+    field: 'image_uri',
+    headerName: 'Image',
+    renderCell: (row) => <img src={row.value} />, // renderCell will render the component
+  },
+  {
     field: 'name',
     headerName: 'Card Name',
     flex: 1,
