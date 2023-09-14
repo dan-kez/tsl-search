@@ -1,27 +1,8 @@
-# React + TypeScript + Vite
+# Tavern Sealed League Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small side project for a magic the gathering sealed league I take part in. This tool aggregates decks from moxfield for league particpants and creates an easy to search interface.
 
-Currently, two official plugins are available:
+This project is hosted on vercel and supabase for the front and back end respectively.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TSL search is a fairly short form project and there is much to be desired in styling, performance, code quality, testing etc. That said, it was fast to build and got the job done for a small side project. 
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
