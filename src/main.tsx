@@ -6,6 +6,7 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import './index.css';
 import Login from './Login.tsx';
 import ManageDeck from './ManageDeck.tsx';
@@ -14,6 +15,7 @@ import AuthProvider from './AuthContext.tsx';
 import { supabase } from './supabase/supabaseClient.ts';
 import Search from './Search.tsx';
 import DeckList from './DeckList.tsx';
+
 import 'mana-font/css/mana.min.css';
 
 async function isAuthenticated(): Promise<boolean> {
@@ -89,6 +91,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider>
+      <Analytics />
       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
