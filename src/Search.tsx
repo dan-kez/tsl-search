@@ -12,6 +12,7 @@ import {
   useTheme,
 } from '@mui/material';
 import ManaCost from './ManaCost';
+import PageShell from './PageShell';
 
 interface CardResponse {
   deck: {
@@ -200,8 +201,7 @@ function Search() {
   }, [JSON.stringify(filters)]);
 
   return (
-    <>
-      <NavBar />
+    <PageShell>
       <div style={{ height: '90vh', width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -228,7 +228,7 @@ function Search() {
           }}
         />
       </div>
-    </>
+    </PageShell>
   );
 }
 

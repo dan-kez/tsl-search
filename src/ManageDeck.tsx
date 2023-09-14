@@ -3,6 +3,7 @@ import { supabase } from './supabase/supabaseClient';
 import { useEffect, useState } from 'react';
 import NavBar from './NavBar';
 import { getExistingDeckInformationForForm } from './getExistingDeckInformationForForm';
+import PageShell from './PageShell';
 
 export type ManageDeckInputs = {
   league_id: number;
@@ -77,8 +78,8 @@ function ManageDeck() {
   };
 
   return (
-    <>
-      <NavBar />
+    <PageShell paddedBody>
+      <h2>Manage Your Deck Details</h2>
       <form className="manage-deck" onSubmit={handleSubmit(onSubmit)}>
         {isSubmitSuccessful && (
           <span className="success">
@@ -86,9 +87,7 @@ function ManageDeck() {
           </span>
         )}
         {isSubmitting && (
-          <span className="success">
-            Submitting and Importing Cards
-          </span>
+          <span className="success">Submitting and Importing Cards</span>
         )}
         {errors.root && <span className="error">{errors.root.message}</span>}
         {/* register your input into the hook by invoking the "register" function */}
@@ -116,7 +115,7 @@ function ManageDeck() {
           Submit
         </button>
       </form>
-    </>
+    </PageShell>
   );
 }
 

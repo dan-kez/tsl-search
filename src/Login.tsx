@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
 import NavBar from './NavBar';
+import PageShell from './PageShell';
 
 console.log(import.meta.env.VITE_PUBLIC_SITE_URL)
 console.log(import.meta.env.VITE_NEXT_PUBLIC_VERCEL_URL)
@@ -38,8 +39,7 @@ export default function Auth() {
   };
 
   return (
-    <>
-      <NavBar />
+    <PageShell paddedBody>
       <div className="padded-body row flex flex-center">
         <div className="col-6 form-widget">
           <h1 className="header">Tavern Sealed League Manager</h1>
@@ -57,6 +57,6 @@ export default function Auth() {
           </form>
         </div>
       </div>
-    </>
+    </PageShell>
   );
 }
