@@ -26,7 +26,8 @@ async function upsertDeckInformation(moxfield_id: string, league_id: number) {
       { onConflict: 'league_id, user_id' }
     )
     .select();
-  await supabase.functions.invoke('moxfield-sync', { body: { league_id } });
+
+  await supabase.functions.invoke('moxfield-sync-one', { body: { deck_id: upsertResult.data![0].id } });
   return upsertResult;
 }
 

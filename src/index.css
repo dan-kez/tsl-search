@@ -103,6 +103,11 @@ button {
   background-color: var(--buttons);
 }
 
+button:disabled,button[disabled] {
+  background-color: var(--disabled);
+  color: var(--text);
+}
+
 a {
   font-weight: 500;
   color: var(--links-color);
