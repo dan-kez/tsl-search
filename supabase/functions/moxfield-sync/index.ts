@@ -58,10 +58,12 @@ const extractScryFallIdFromMoxfieldDeck = (moxfieldDeck: MoxfieldDeck) => {
 const getMoxfieldDeckList = async (
   moxfield_id: string
 ): Promise<MoxfieldDeck> => {
+  const startTime = +new Date();
   const moxfieldResponse = await fetch(
     `https://api2.moxfield.com/v3/decks/all/${moxfield_id}`
   );
   const moxfieldDeck: MoxfieldDeck = await moxfieldResponse.json();
+  console.log({ moxfieldDeckFetchDuration: +new Date() - startTime });
   return moxfieldDeck;
 };
 
@@ -110,7 +112,7 @@ serve(async (req) => {
         .from('card_pool')
         .delete()
         .eq('deck_id', deck_id)
-        .not('scryfall_id', 'in', allScryFallIds);
+        .not('scryfall_id', 'in', `(${allScryFallIds.join(',')})`);
 
       // Determine which scryfall cards are in our system (scryfall_card may be out of date)
       const { data: validScryfallIdsMap } = await supabaseClient
@@ -136,7 +138,7 @@ serve(async (req) => {
 
       // Add all cards not in their pool
       try {
-        const insertResponse = await supabaseClient
+        await supabaseClient
           .from('card_pool')
           .upsert(
             validScryfallIds.map((scryfall_id) => ({
@@ -146,7 +148,6 @@ serve(async (req) => {
             { ignoreDuplicates: true }
           )
           .select();
-        console.log(insertResponse);
       } catch (e) {
         console.error(e);
       }
