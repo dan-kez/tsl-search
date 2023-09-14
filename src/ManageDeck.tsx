@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { supabase } from './supabase/supabaseClient';
 import { useEffect, useState } from 'react';
-import NavBar from './NavBar';
 import { getExistingDeckInformationForForm } from './getExistingDeckInformationForForm';
 import PageShell from './PageShell';
 

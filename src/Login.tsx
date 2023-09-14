@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
-import NavBar from './NavBar';
 import PageShell from './PageShell';
 
 console.log(import.meta.env.VITE_PUBLIC_SITE_URL)

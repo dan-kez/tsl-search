@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
-import NavBar from './NavBar';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import {
   List,
