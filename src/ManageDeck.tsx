@@ -85,6 +85,11 @@ function ManageDeck() {
             Submit Successful, Moxfield Data Refreshed
           </span>
         )}
+        {isSubmitting && (
+          <span className="success">
+            Submitting and Importing Cards
+          </span>
+        )}
         {errors.root && <span className="error">{errors.root.message}</span>}
         {/* register your input into the hook by invoking the "register" function */}
         <label htmlFor="league_id">
