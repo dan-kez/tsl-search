@@ -8,9 +8,11 @@ function NavBar() {
   const { user } = useContext(AuthContext);
   const [hasDeckSetUp, setHasDeckSetUp] = useState<boolean | null>();
   useEffect(() => {
-    getExistingDeckInformationForForm().then(({ moxfield_url }) => {
-      setHasDeckSetUp(!!moxfield_url);
-    });
+    if (user) {
+      getExistingDeckInformationForForm().then(({ moxfield_url }) => {
+        setHasDeckSetUp(!!moxfield_url);
+      });
+    }
   }, [user]);
 
   return (

@@ -17,6 +17,7 @@
     "@mui/styled-engine": "^5.14.8",
     "@mui/x-data-grid": "^6.13.0",
     "@supabase/supabase-js": "^2.33.2",
+    "@vercel/analytics": "^1.0.2",
     "localforage": "^1.10.0",
     "mana-font": "^1.15.9",
     "match-sorter": "^6.3.1",
