@@ -40,9 +40,12 @@ export default function Auth() {
   return (
     <>
       <NavBar />
-      <div className="row flex flex-center">
+      <div className="padded-body row flex flex-center">
         <div className="col-6 form-widget">
           <h1 className="header">Tavern Sealed League Manager</h1>
+          <p>
+            Sign in to add sync your moxfield deck to be available through search.
+          </p>
           <form className="form-widget" onSubmit={handleLogin}>
             <button className={'button block discord-login'} disabled={loading}>
               {loading ? (

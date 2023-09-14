@@ -35,15 +35,13 @@ const columns: GridColDef[] = [
     flex: 1,
     renderCell: (row) => {
       return (
-        <div className="hover-img">
-          <a
-            href={`https://www.moxfield.com/decks/${row.row.moxfield_id}`}
-            rel="noref"
-            target="_blank"
-          >
-            {row.value}
-          </a>
-        </div>
+        <a
+          href={`https://www.moxfield.com/decks/${row.row.moxfield_id}`}
+          rel="noref"
+          target="_blank"
+        >
+          {row.value}
+        </a>
       );
     },
   },

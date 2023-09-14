@@ -13,8 +13,8 @@ import { getExistingDeckInformationForForm } from "./getExistingDeckInformationF
 import AuthProvider from './AuthContext.tsx';
 import { supabase } from './supabase/supabaseClient.ts';
 import Search from './Search.tsx';
-import 'mana-font/css/mana.css';
 import DeckList from './DeckList.tsx';
+import 'mana-font/css/mana.min.css';
 
 async function isAuthenticated(): Promise<boolean> {
   try {

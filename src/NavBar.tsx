@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from './AuthContext';
 import { getExistingDeckInformationForForm } from './getExistingDeckInformationForForm';
+import { NavLink } from 'react-router-dom';
 
 function NavBar() {
   const { user } = useContext(AuthContext);
@@ -14,33 +15,33 @@ function NavBar() {
 
   return (
     <>
-      {hasDeckSetUp === false && (
-        <a href={user ? '/manage-deck' : '/login'}>
-          <div className="add-deck-warning">
-            {!user && 'Sign in to add your moxfield deck'}
-            {user && 'Add your moxfield deck'}
-          </div>
-        </a>
-      )}
       <div className="navbar">
-        <div>
-          <a href="/" className="navbar-item">
+        <div className='nav-links'>
+          <NavLink to="/" className="navbar-item">
             TSL Search Tool
-          </a>
-          <a href="/decks" className="navbar-item">
+          </NavLink>
+          <NavLink to="/decks" className="navbar-item">
             All Decks
-          </a>
+          </NavLink>
           {user && (
-            <a href="/manage-deck" className="navbar-item">
+            <NavLink to="/manage-deck" className="navbar-item">
               Manage Your Deck
-            </a>
+            </NavLink>
           )}
           {!user && (
-            <a href="/login" className="navbar-item">
+            <NavLink to="/login" className="navbar-item">
               Login
-            </a>
+            </NavLink>
           )}
         </div>
+        {hasDeckSetUp === false && (
+          <NavLink to={user ? '/manage-deck' : '/login'}>
+            <div className="add-deck-warning">
+              {!user && 'Sign in to add your moxfield deck'}
+              {user && 'Add your moxfield deck'}
+            </div>
+          </NavLink>
+        )}
         {user && user.user_metadata.picture && (
           <div
             style={{

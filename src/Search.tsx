@@ -182,6 +182,8 @@ const columns: GridColDef[] = [
 ];
 
 function Search() {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up("sm"))
   const [rows, setRows] = useState<RowToRender[]>([]);
   // TODO: Enable filtering by League Id
   const [filters] = useState<CardFilters>({
@@ -219,6 +221,8 @@ function Search() {
               columnVisibilityModel: {
                 oracle_text: false,
                 colors: false,
+                // only show this by default on large screens
+                type_line: largeScreen,
               },
             },
           }}
