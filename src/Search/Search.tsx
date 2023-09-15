@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { supabase } from './supabase/supabaseClient';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { supabase } from '../supabase/supabaseClient';
+import {
+  DataGrid,
+  GridColDef,
+  GridFilterModel,
+} from '@mui/x-data-grid';
 import {
   List,
   ListItem,
@@ -11,7 +15,8 @@ import {
   useTheme,
 } from '@mui/material';
 import ManaCost from './ManaCost';
-import PageShell from './PageShell';
+import PageShell from '../PageShell';
+import CustomToolbar from './CustomToolbar';
 
 interface CardResponse {
   deck: {
@@ -41,20 +46,13 @@ interface RowToRender {
   type_line: string;
 }
 
-interface CardFilters {
-  colors?: string[];
-  name?: string;
-  oracle_text?: string;
-  type_line?: string;
-  league_id: number;
-}
-
 const getDistinctOracleIdByLeagueId = async (
-  filters: CardFilters
+  league_id: number
 ): Promise<CardResponse[]> => {
   const query = supabase
     .from('distinct_oracle_id_by_league_id')
-    .select(`
+    .select(
+      `
       oracle_card:oracle_id!inner (
         oracle_id:id,
         colors,
@@ -65,14 +63,14 @@ const getDistinctOracleIdByLeagueId = async (
         type_line,
         scryfall_id
       )
-    `)
-    .eq('league_id', filters.league_id);
+    `
+    )
+    .eq('league_id', league_id);
 
   const { data: cardResponses, error } = await query;
   if (error) {
     console.error(error);
   }
-  console.log(cardResponses);
   // @ts-expect-error
   return cardResponses || [];
 };
@@ -102,7 +100,6 @@ const getDecksWithCard = async ({
   if (error) {
     console.error(error);
   }
-  console.log(decks);
   // @ts-expect-error
   return decks || [];
 };
@@ -120,7 +117,7 @@ const DecksWithCardDrawer = ({
   const largeScreen = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [decks, setDecks] = useState<
-    { moxfield_id: string; discord_name: string, quantity: number }[]
+    { moxfield_id: string; discord_name: string; quantity: number }[]
   >([]);
   useEffect(() => {
     getDecksWithCard({ league_id, oracle_id }).then((decks) => {
@@ -199,7 +196,11 @@ const columns: GridColDef[] = [
   },
   { field: 'oracle_text', headerName: 'Oracle Text', flex: 0.5 },
   { field: 'type_line', headerName: 'Type', flex: 0.5 },
-  { field: 'colors', headerName: 'Colors', flex: 0.5 },
+  {
+    field: 'colors',
+    headerName: 'Colors',
+    flex: 0.5,
+  },
 ];
 
 function Search() {
@@ -207,18 +208,18 @@ function Search() {
   const largeScreen = useMediaQuery(theme.breakpoints.up('sm'));
   const [rows, setRows] = useState<RowToRender[]>([]);
   // TODO: Enable filtering by League Id
-  const [filters] = useState<CardFilters>({
-    league_id: 1,
-  });
+  const [leagueId] = useState<number>(1);
+  const [filterModel, setFilterModel] = useState<GridFilterModel>();
+
   useEffect(() => {
-    getDistinctOracleIdByLeagueId(filters).then((data) => {
+    getDistinctOracleIdByLeagueId(leagueId).then((data) => {
       setRows(
         data.map(({ oracle_card }) => ({
           ...oracle_card,
         }))
       );
     });
-  }, [JSON.stringify(filters)]);
+  }, [leagueId]);
 
   return (
     <PageShell>
@@ -227,12 +228,17 @@ function Search() {
           rows={rows}
           columns={columns}
           getRowId={(row) => row.oracle_id}
-          slots={{ toolbar: GridToolbar }}
           slotProps={{
             toolbar: {
-              showQuickFilter: true,
+              setFilterModel,
+              largeScreen,
             },
           }}
+          slots={{
+            toolbar: CustomToolbar,
+          }}
+          filterModel={filterModel}
+          onFilterModelChange={setFilterModel}
           density="comfortable"
           disableDensitySelector
           disableRowSelectionOnClick

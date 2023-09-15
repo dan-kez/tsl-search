@@ -249,3 +249,14 @@ input {
 .padded-body {
   padding: 1em;
 }
+
+.mana-filter-button {
+  padding: 0.5rem;
+  margin-left: 0.25rem;
+  background-color: gray;
+  border: 1px solid black;
+}
+
+.mana-filter-button.active {
+  background-color: var(--black-bean);
+}
