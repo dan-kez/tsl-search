@@ -31,25 +31,37 @@ serve(async (req) => {
       const scryfallResponseJson = await scryfallResponse.json();
 
       const { error } = await supabaseClient.from('scryfall_card').upsert(
-        scryfallResponseJson.data.map(
-          ({
-            id,
-            name,
-            oracle_text,
-            image_uris,
-            colors,
-            type_line,
-            mana_cost,
-          }: any) => ({
-            id,
-            name,
-            oracle_text,
-            image_uri: image_uris?.normal,
-            colors,
-            type_line,
-            mana_cost,
-          })
-        )
+        scryfallResponseJson.data
+          .map(
+            ({
+              id,
+              name,
+              oracle_text,
+              image_uris,
+              colors,
+              type_line,
+              mana_cost,
+              oracle_id,
+              card_faces,
+            }: any) => {
+              const determinedOracleId = oracle_id
+                ? oracle_id
+                : card_faces?.[0]?.oracle_id;
+              if (!determinedOracleId) return undefined;
+              return {
+                id,
+                name,
+                oracle_text,
+                image_uri: image_uris?.normal,
+                colors,
+                type_line,
+                mana_cost,
+                oracle_id: determinedOracleId,
+              };
+            }
+          )
+          // Remove any vards missing oracle_id
+          .filter((value: any) => !!value)
       );
       if (error) throw error;
       if (scryfallResponseJson.has_more) {

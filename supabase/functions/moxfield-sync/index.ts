@@ -34,8 +34,9 @@ serve(async (req) => {
     .select('id')
     .eq('league_id', league_id);
 
-  const allPromises = decks!.map(({ id: deck_id }) => {
-    return supabaseClient.functions.invoke('moxfield-sync-one', { body: { deck_id } });
+  const allPromises = decks!.map(async ({ id: deck_id }) => {
+    await supabaseClient.functions.invoke('moxfield-sync-one', { body: { deck_id } });
+    await supabaseClient.functions.invoke('moxfield-sync-one-oracle', { body: { deck_id } });
   });
 
   await Promise.all(allPromises);
