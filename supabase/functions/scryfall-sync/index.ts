@@ -6,6 +6,35 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey',
 };
 
+interface RowToInsert {
+  id: string;
+  name: string;
+  oracle_text: string;
+  image_uri?: string;
+  colors: string[];
+  type_line: string;
+  mana_cost: string;
+  scryfall_id: string;
+  rarity: string;
+}
+
+interface MoxfieldCardResponse {
+  next_page?: string;
+  has_more: boolean,
+  data: {
+    id: string;
+    name: string;
+    oracle_text: string;
+    image_uris?: Record<string, string>;
+    colors: string[];
+    type_line: string;
+    mana_cost: string;
+    oracle_id?: string;
+    rarity: string;
+    card_faces?: { oracle_id: string }[];
+  }[];
+}
+
 serve(async (req) => {
   try {
     // Create a Supabase client with the Auth context of the logged in user.
@@ -28,41 +57,51 @@ serve(async (req) => {
     ): Promise<any> => {
       if (!nextPageUri) return;
       const scryfallResponse = await fetch(nextPageUri);
-      const scryfallResponseJson = await scryfallResponse.json();
+      const scryfallResponseJson: MoxfieldCardResponse =
+        await scryfallResponse.json();
 
-      const { error } = await supabaseClient.from('scryfall_card').upsert(
-        scryfallResponseJson.data
-          .map(
-            ({
-              id,
-              name,
-              oracle_text,
-              image_uris,
-              colors,
-              type_line,
-              mana_cost,
-              oracle_id,
-              card_faces,
-            }: any) => {
-              const determinedOracleId = oracle_id
-                ? oracle_id
-                : card_faces?.[0]?.oracle_id;
-              if (!determinedOracleId) return undefined;
-              return {
-                id,
-                name,
-                oracle_text,
-                image_uri: image_uris?.normal,
-                colors,
-                type_line,
-                mana_cost,
-                oracle_id: determinedOracleId,
-              };
-            }
-          )
-          // Remove any vards missing oracle_id
-          .filter((value: any) => !!value)
+      const oracleIdToRowsToInsert = scryfallResponseJson.data.reduce(
+        (
+          acc: Record<string, RowToInsert>,
+          {
+            id,
+            name,
+            oracle_text,
+            image_uris,
+            colors,
+            type_line,
+            mana_cost,
+            oracle_id,
+            rarity,
+            card_faces,
+          }: MoxfieldCardResponse['data'][0]
+        ) => {
+          const determinedOracleId = oracle_id
+            ? oracle_id
+            : card_faces?.[0]?.oracle_id;
+          if (!determinedOracleId) return acc;
+
+          acc[determinedOracleId] = {
+            id: determinedOracleId,
+            name,
+            oracle_text,
+            image_uri: image_uris?.normal,
+            colors,
+            type_line,
+            mana_cost,
+            scryfall_id: id,
+            rarity,
+          };
+          return acc;
+        },
+        {}
       );
+
+      const { error } = await supabaseClient
+        .from('oracle_card')
+        .upsert(Object.values(oracleIdToRowsToInsert), {
+          onConflict: 'id',
+        });
       if (error) throw error;
       if (scryfallResponseJson.has_more) {
         return insertPageOfScryfallResults(scryfallResponseJson.next_page);
