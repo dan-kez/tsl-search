@@ -27,7 +27,7 @@ async function upsertDeckInformation(moxfield_id: string, league_id: number) {
     .select();
 
   // Ensure their deck is sync'd 
-  await supabase.functions.invoke('moxfield-sync-one', { body: { deck_id: upsertResult.data![0].id } });
+  await supabase.functions.invoke('moxfield-sync-one-oracle', { body: { deck_id: upsertResult.data![0].id } });
   // hack to sync all the other decks until I build a refresh button
   await supabase.functions.invoke('moxfield-sync', { body: { league_id } });
   return upsertResult;
