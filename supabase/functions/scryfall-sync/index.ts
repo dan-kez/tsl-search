@@ -30,7 +30,7 @@ serve(async (req) => {
       const scryfallResponse = await fetch(nextPageUri);
       const scryfallResponseJson = await scryfallResponse.json();
 
-      const { error } = await supabaseClient.from('scryfall_card').upsert(
+      const { error } = await supabaseClient.from('oracle_card').upsert(
         scryfallResponseJson.data
           .map(
             ({
@@ -49,14 +49,14 @@ serve(async (req) => {
                 : card_faces?.[0]?.oracle_id;
               if (!determinedOracleId) return undefined;
               return {
-                id,
+                id: determinedOracleId,
+                scryfall_id: id,
                 name,
                 oracle_text,
                 image_uri: image_uris?.normal,
                 colors,
                 type_line,
                 mana_cost,
-                oracle_id: determinedOracleId,
               };
             }
           )
