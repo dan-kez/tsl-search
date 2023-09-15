@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabase/supabaseClient';
-import {
-  DataGrid,
-  GridColDef,
-  GridFilterModel,
-} from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridFilterModel } from '@mui/x-data-grid';
 import {
   List,
   ListItem,
@@ -32,6 +28,7 @@ interface CardResponse {
     type_line: string;
     image_uri: string;
     mana_cost: string;
+    rarity: string;
   };
 }
 
@@ -44,6 +41,7 @@ interface RowToRender {
   name: string;
   oracle_text: string;
   type_line: string;
+  rarity: string;
 }
 
 const getDistinctOracleIdByLeagueId = async (
@@ -61,6 +59,7 @@ const getDistinctOracleIdByLeagueId = async (
         name,
         oracle_text,
         type_line,
+        rarity,
         scryfall_id
       )
     `
@@ -197,6 +196,13 @@ const columns: GridColDef[] = [
   { field: 'oracle_text', headerName: 'Oracle Text', flex: 0.5 },
   { field: 'type_line', headerName: 'Type', flex: 0.5 },
   {
+    field: 'rarity',
+    headerName: 'Rarity',
+    flex: 0.5,
+    type: 'singleSelect',
+    valueOptions: ['mythic', 'rare', 'uncommon', 'common'],
+  },
+  {
     field: 'colors',
     headerName: 'Colors',
     flex: 0.5,
@@ -247,6 +253,7 @@ function Search() {
               columnVisibilityModel: {
                 oracle_text: false,
                 colors: false,
+                rarity: false,
                 // only show this by default on large screens
                 type_line: largeScreen,
               },
