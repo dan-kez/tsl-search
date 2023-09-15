@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
 import NavBar from './NavBar';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 interface DeckFilters {
   league_id: number;
@@ -16,7 +17,7 @@ const getDeckLists = async ({
 > => {
   const query = supabase
     .from('decks_with_username')
-    .select('id, name, moxfield_id, discord_name')
+    .select('id, name, moxfield_id, discord_name, discord_username')
     .eq('league_id', league_id);
 
   const { data: decks, error } = await query;
@@ -31,7 +32,8 @@ const getDeckLists = async ({
 };
 
 const columns: GridColDef[] = [
-  { field: 'discord_name', headerName: 'Discord User', flex: 0.5 },
+  { field: 'discord_name', headerName: 'Name', flex: 0.5 },
+  { field: 'discord_username', headerName: 'Discord Username', flex: 0.5 },
   {
     field: 'name',
     headerName: 'Moxfield Deck Name',
@@ -51,6 +53,8 @@ const columns: GridColDef[] = [
 ];
 
 function DeckList() {
+  const theme = useTheme();
+  const largeScreen = useMediaQuery(theme.breakpoints.up('sm'));
   const [rows, setRows] = useState<
     { name: string; moxfield_id: string; discord_name: string }[]
   >([]);
@@ -83,6 +87,8 @@ function DeckList() {
               columnVisibilityModel: {
                 oracle_text: false,
                 colors: false,
+                // only show this by default on large screens
+                discord_username: largeScreen,
               },
             },
           }}
