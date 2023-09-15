@@ -9,7 +9,6 @@ const ColorFilterButton = ({
   isActive: boolean,
   color: 'W' | 'U' | 'B' | 'R' | 'G';
 }) => {
-  console.log(isActive);
   return (
     <button
       className={`mana-filter-button${isActive ? ' active': ''}`}

@@ -47,7 +47,7 @@ function ManageDeck() {
   useEffect(() => {
     const fetchLeagues = async () => {
       const { data } = await supabase.from('league').select();
-      console.log(data);
+
       setLeagues(data as any);
     };
     fetchLeagues();
@@ -57,7 +57,7 @@ function ManageDeck() {
     let moxfield_id: string;
     try {
       const moxfield_url = new URL(data.moxfield_url);
-      console.log(moxfield_url);
+
       if (moxfield_url.hostname !== 'www.moxfield.com') {
         setError('moxfield_url', { message: 'Hostname is not moxfield.com' });
         return;

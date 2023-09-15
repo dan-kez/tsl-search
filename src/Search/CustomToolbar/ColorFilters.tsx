@@ -12,7 +12,7 @@ const ColorFilters = ({
   >;
 }) => {
   const [activeColor, setActiveColor] = useState<string>();
-    console.log(activeColor)
+
   return (
     <>
       {COLORS.map((color) => (
@@ -21,18 +21,21 @@ const ColorFilters = ({
           color={color}
           isActive={color === activeColor}
           onClick={() => {
-            console.log(color);
-            setActiveColor(color);
+            setActiveColor(color === activeColor ? undefined : color);
             setFilterModel((currentFilters) => {
               return {
                 ...currentFilters,
-                items: [
-                  {
-                    field: 'colors',
-                    operator: 'equals',
-                    value: color,
-                  },
-                ],
+                items:
+                  // unset the color if it's already active
+                  color === activeColor
+                    ? []
+                    : [
+                        {
+                          field: 'colors',
+                          operator: 'equals',
+                          value: color,
+                        },
+                      ],
               };
             });
           }}

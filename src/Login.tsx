@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { supabase } from './supabase/supabaseClient';
 import PageShell from './PageShell';
 
-console.log(import.meta.env.VITE_PUBLIC_SITE_URL)
-console.log(import.meta.env.VITE_NEXT_PUBLIC_VERCEL_URL)
-
 const getURL = () => {
   let url =
     import.meta.env.VITE_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
