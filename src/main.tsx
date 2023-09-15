@@ -13,7 +13,7 @@ import ManageDeck from './ManageDeck.tsx';
 import { getExistingDeckInformationForForm } from "./getExistingDeckInformationForForm.tsx";
 import AuthProvider from './AuthContext.tsx';
 import { supabase } from './supabase/supabaseClient.ts';
-import Search from './Search.tsx';
+import Search from './Search';
 import DeckList from './DeckList.tsx';
 
 import 'mana-font/css/mana.min.css';
