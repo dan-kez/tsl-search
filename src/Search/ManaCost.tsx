@@ -10,7 +10,7 @@ const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
   if (!splitManaCost) return undefined;
   return Array.from(splitManaCost).map((symbol, i) => {
     if (symbol === ' // ') {
-      return <span> // </span>;
+      return <span key={i}> // </span>;
     }
     return (
       <i
@@ -21,4 +21,6 @@ const ManaCost = ({ mana_cost }: { mana_cost: string }) => {
   });
 };
 
-export default React.memo(ManaCost);
+const MemoizedManaCost = React.memo(ManaCost);
+
+export default MemoizedManaCost;

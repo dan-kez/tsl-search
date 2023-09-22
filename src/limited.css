@@ -1,0 +1,92 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+.hover-img {
+  position: relative;
+}
+
+.hover-img a {
+  text-decoration: inherit;
+  color: var(--text);
+}
+
+.hover-img a span {
+  position: absolute;
+  display: none;
+  z-index: 99;
+}
+
+@media only screen and (min-width: 992px) {
+  .hover-img a:hover span {
+    display: block;
+    left: 110%;
+    top: -12px;
+  }
+  .hover-img img {
+    height: 300px;
+    border-radius: 4.75% / 3.5%;
+  }
+}
+
+.ms-cost {
+  margin-right: 2px;
+}
+
+/* Allow overflow out of cell for hover image */
+.MuiDataGrid-cell {
+  overflow: visible !important;
+}
+
+/* Allow wordwrapping */
+.MuiDataGrid-root .MuiDataGrid-cell {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+.add-deck-warning {
+  padding: 6px;
+}
+
+
+.mana-filter-button {
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-left: 0.25rem;
+  background-color: darkgray;
+  border: 1px solid black;
+}
+
+.mana-filter-button.active {
+  background-color: gray;
+}
+
+/* TODO: Replace form with material UI */
+form.manage-deck {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: auto;
+}
+
+form.manage-deck label {
+  margin: 1em;
+}
+form.manage-deck button {
+  width: fit-content;
+}
+form.manage-deck select,
+input {
+  margin-left: 1em;
+}
