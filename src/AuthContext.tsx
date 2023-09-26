@@ -9,7 +9,7 @@ const initialState: { session: Session | null; user: User | null } = {
 
 export const AuthContext = createContext(initialState);
 
-export function useAuthStateChange(
+function useAuthStateChange(
   callback: (event: AuthChangeEvent, session: Session | null) => void
 ) {
   /* eslint-disable react-hooks/exhaustive-deps */

@@ -154,17 +154,17 @@ function NavBar() {
                       </ListItemIcon>
                       <ListItemText primary="Manage Deck" />
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/manage-deck">
+                    <ListItemButton component={Link} to="/wishlist">
                       <ListItemIcon>
                         <StarIcon sx={{ color: 'primary.main' }} />
                       </ListItemIcon>
                       <ListItemText primary="Wishlist" />
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/manage-deck">
+                    <ListItemButton component={Link} to="/potential-trades">
                       <ListItemIcon>
                         <HandshakeIcon sx={{ color: 'primary.main' }} />
                       </ListItemIcon>
-                      <ListItemText primary="Recommended Trades" />
+                      <ListItemText primary="Potential Trades" />
                     </ListItemButton>
                   </>
                 )}

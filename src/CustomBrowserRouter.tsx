@@ -58,7 +58,17 @@ const router = createBrowserRouter([
       },
       {
         path: 'decks',
-        Component: lazy(() => import('./DeckList')),
+        Component: lazy(() => import('./DeckList.tsx')),
+      },
+      {
+        path: 'wishlist',
+        loader: protectedLoader,
+        Component: lazy(() => import('./WishList')),
+      },
+      {
+        path: 'potential-trades',
+        loader: protectedLoader,
+        Component: lazy(() => import('./PotentialTrades')),
       },
       {
         path: 'logout',
